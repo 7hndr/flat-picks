@@ -1,0 +1,244 @@
+@import '../fonts/fonts'
+@import './vars'
+@import './range'
+
+*
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    outline: none
+    font-family: 'Gotham Pro'
+
+html
+    font-size: 10px
+body
+    background: $light-gray
+#app
+    width: 100%
+    overflow-y: auto
+    height: 100vh
+.wrapper
+    display: grid
+    justify-items: center
+    padding: 2rem
+
+.filters
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    padding: 1rem 0
+    width: 100%
+    max-width: 1200px
+    flex-wrap: wrap
+
+.flats-loop
+    width: 100%
+    min-width: 270px
+    max-width: 1200px
+    justify-content: center
+    display: grid
+    justify-items: center
+    align-items: center
+    place-items: center stretch
+    grid-gap: 3rem
+    padding: 3rem 0
+    grid-template-columns: repeat(auto-fit, 270px)
+.card
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    flex-direction: column
+    width: 270px
+    height: 365px
+    background: $white
+    box-shadow: 0px 5px 20px rgba(86, 86, 86, 0.05)
+    border-radius: 10px
+    transition: .25s ease-in-out
+    cursor: pointer
+    &:hover
+        box-shadow: 0px 5px 20px rgba(86, 86, 86, 0.25)
+        border-radius: 10px
+.hyphen
+    opacity: .5
+    margin: 0 .75rem
+    font-weight: 400
+    font-size: 1.2rem
+.separator
+    opacity: .25
+    height: 100%
+    display: flex
+    justify-content: center
+    align-items: center
+    margin: 0 .75rem
+    line-height: 6rem
+    font-weight: bold
+    font-size: 1.2rem
+.flat-item
+    padding: 1rem
+    overflow: hidden
+    &__overview
+        border: 1px solid $border
+        box-sizing: border-box
+        border-radius: .5rem
+        position: relative
+        width: 100%
+        padding: 3rem 0
+        display: flex
+        justify-content: center
+        align-items: flex-start
+        transition: .25s ease-in-out
+        &_number
+            position: absolute
+            right: 0
+            top: 0
+            padding: 0.64rem
+            background: $white
+            border: 1px solid $border
+            box-sizing: border-box
+            border-radius: 0px 5px
+            border-right: none
+            border-top: none
+            font-size: 1.4rem
+            font-weight: 700
+        &_plan
+            width: 23rem
+            transition: .25s ease-in-out
+    &__btn
+        background: $lime
+        border-radius: 2px 2px 5px 5px
+        border: 0px
+        cursor: pointer
+        font-size: 1.4rem
+        text-transform: uppercase
+        width: 100%
+        color: $white
+        font-weight: 700
+        line-height: 4rem
+        transition: .5s ease-in-out
+        &:hover
+            background: $ananas
+            color: $black
+            box-shadow: 0px 1px 5px rgba(86, 86, 86, 0.25)
+    &__extra
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 100%
+        // padding: 1rem
+        font-weight: 700
+        font-size: 1.2rem
+        line-height: 2.8rem
+        margin-bottom: .5rem
+        &_main
+            padding-right: 1rem
+        &_square
+            position: relative
+            &::after
+                content: '2'
+                position: absolute
+                right: -0.5rem
+                top: -1.2rem
+                font-size: .8rem
+        &_floor
+            opacity: .5
+    &__price
+        width: 100%
+        padding: 1rem
+        color: $black
+        font-weight: 700
+        display: flex
+        justify-content: flex-end
+        align-items: flex-end
+        flex-direction: column
+        &_full
+            font-size: 2rem
+            line-height: 2.8rem
+        &_per-m
+            font-weight: 700
+            font-size: 1.2rem
+            opacity: .5
+            position: relative
+            padding: 0.7rem 1rem
+            &::after
+                content: '2'
+                position: absolute
+                right: .5rem
+                top: .4rem
+                font-size: .8rem
+    &:hover &__overview_plan
+        width: 18.6rem
+    &:hover &__overview
+        padding: 2.15rem 0
+
+.filter-btns
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
+    padding: 1rem
+    height: 6rem
+    input
+        margin-right: 0.2rem
+        width: 4.7rem
+        height: 4rem
+        background: $white
+        border: 1px solid $gray-border
+        box-sizing: border-box
+        border-radius: 5px
+        -moz-appearance: textfield
+        font-size: 1.6rem
+        font-weight: 700
+        display: flex
+        justify-content: center
+        align-items: center
+        text-align: center
+        cursor: pointer
+        &:hover, &:active, &:focus
+            background: $lime
+            border: 1px solid $lime
+        &:hover
+            box-shadow: 0px 1px 5px rgba(86, 86, 86, 0.25)
+
+.filter-range
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
+    flex-direction: column
+    padding: 1rem
+    height: 6rem
+    &_values
+        display: flex
+        justify-content: center
+        align-items: center
+    &_slider
+        margin-top: 1rem
+        position: relative
+        height: 3rem
+        width: 18rem
+        padding: 1rem
+        input
+            position: absolute
+            width: 17.5rem
+            top: 1rem
+            left: 0
+            right: 0
+            margin: 0 auto
+            border-radius: none
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0
+input[type=number]
+    width: 8rem
+    height: 4rem
+    background: $white
+    border: 1px solid $gray-border
+    box-sizing: border-box
+    border-radius: 5px
+    -moz-appearance: textfield
+    font-size: 1.6rem
+    font-weight: 400
+    display: flex
+    justify-content: center
+    align-items: center
+    text-align: center

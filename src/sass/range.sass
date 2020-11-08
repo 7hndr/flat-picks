@@ -1,0 +1,95 @@
+$track-color: $gray-border !default
+$thumb-color: $lime !default
+$thumb-radius: 50% !default
+$thumb-height: 24px !default
+$thumb-width: 24px !default
+$thumb-border-width: 4px !default
+$thumb-border-color: $white !default
+$track-width: 100% !default
+$track-height: 2px !default
+$track-border-width: 0 !default
+$track-border-color: $gray-border !default
+
+$track-radius: 0 !default
+$contrast: 5% !default
+
+$ie-bottom-track-color: darken($track-color, $contrast) !default
+
+@mixin track
+    cursor: default
+    height: $track-height
+    transition: all .2s ease
+    width: $track-width
+
+@mixin thumb
+    background: $thumb-color
+    border: $thumb-border-width solid $thumb-border-color
+    border-radius: $thumb-radius
+    box-sizing: border-box
+    cursor: default
+    height: $thumb-height
+    width: $thumb-width
+    z-index: 2
+    position: relative
+    cursor: pointer
+
+[type='range']
+    position: absolute
+    -webkit-appearance: none
+    background: transparent
+    margin: $thumb-height / 2 0
+    width: $track-width
+    &::-moz-focus-outer
+        border: 0
+    &:focus
+        outline: 0
+        &::-webkit-slider-runnable-track
+            background: lighten($track-color, $contrast)
+
+        &::-ms-fill-lower
+            background: $track-color
+
+        &::-ms-fill-upper
+            background: lighten($track-color, $contrast)
+    &::-webkit-slider-runnable-track
+        background: $track-color
+        border: $track-border-width solid $track-border-color
+        border-radius: $track-radius
+        @include track
+    &::-webkit-slider-thumb
+        -webkit-appearance: none
+        margin-top: ((-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2)
+        @include thumb
+    &::-moz-range-track
+        background: $track-color
+        border: $track-border-width solid $track-border-color
+        border-radius: $track-radius
+        height: $track-height / 2
+        @include track
+    &::-moz-range-thumb
+        @include thumb
+    &::-ms-track
+        background: transparent
+        border-color: transparent
+        border-width: ($thumb-height / 2) 0
+        color: transparent
+        @include track
+    &::-ms-fill-lower
+        background: $ie-bottom-track-color
+        border: $track-border-width solid $track-border-color
+        border-radius: ($track-radius * 2)
+    &::-ms-fill-upper
+        background: $track-color
+        border: $track-border-width solid $track-border-color
+        border-radius: ($track-radius * 2)
+    &::-ms-thumb
+        margin-top: $track-height / 4
+        @include thumb
+    &:disabled
+        &::-webkit-slider-thumb,
+        &::-moz-range-thumb,
+        &::-ms-thumb,
+        &::-webkit-slider-runnable-track,
+        &::-ms-fill-lower,
+        &::-ms-fill-upper
+            cursor: not-allowed
