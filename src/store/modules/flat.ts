@@ -4,25 +4,28 @@ export default {
       const res = await fetch("/data/data.json");
       const flats = await res.json();
       context.commit("updateFlats", flats);
+    },
+    newSet(context: any) {
+      context.commit("setFilter");
     }
   },
   mutations: {
     updateFlats(state: any, flats: any) {
       state.flats = flats;
+    },
+    setFilter(state: any, arr: any) {
+      console.log("yes");
+      console.log(arr.value);
+      // console.log(`${min} and ${max} name is ${name}`);
+      return true;
     }
   },
   state: {
     flats: [],
     filtered: [],
-    filters: [],
     floors: [1, 35],
-    floorFork: []
-    // filters: [
-    //   { name: "filterRooms", getter: obj => obj.short, value: "" },
-    //   { name: "filterFloor", getter: obj => obj.floor, value: "" },
-    //   { name: "filterSquare", getter: obj => obj.square, value: "" },
-    //   { name: "filterPrice", getter: obj => obj.price_real, value: "" }
-    // ],
+    floorFork: [],
+    filters: [{ Rooms: [] }, { Floor: [] }, { Square: [] }, { Price: [] }]
   },
   getters: {
     allFlats(state: any) {
@@ -62,41 +65,6 @@ export default {
     },
     getByRooms: (state: any) => (event: any) => {
       const roomQty = event.target.value;
-
-      if (state.filters.length >= 1) {
-        if (!state.filters.includes(roomQty)) {
-          event.target.classList.toggle("activeBtn");
-          state.filters.push(roomQty);
-          state.flats.forEach((item: any) => {
-            if (item.short == roomQty) {
-              return state.filtered.push(item);
-            }
-          });
-        } else {
-          event.target.classList.toggle("activeBtn");
-          const index: any = state.filters.indexOf(roomQty);
-          state.filters.splice(index, 1);
-          state.flats.forEach((item: any) => {
-            if (item.short === roomQty) {
-              const index: any = state.filtered.indexOf(item);
-              state.filtered.splice(index, 1);
-            }
-          });
-        }
-      } else {
-        state.filtered = [];
-        state.filters.push(roomQty);
-        event.target.classList.toggle("activeBtn");
-        state.flats.forEach((item: any) => {
-          state.filters.forEach((filter: any) => {
-            if (item.short === filter) {
-              return state.filtered.push(item);
-            }
-          });
-        });
-      }
-      console.log(state.filters);
-      console.log(state.filtered);
     }
   }
 };

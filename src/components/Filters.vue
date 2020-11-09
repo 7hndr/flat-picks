@@ -52,19 +52,22 @@ export default {
           id: 1,
           name: "Этаж",
           value: [1, 35],
-          step: 1
+          step: 1,
+          filterName: "Floor"
         },
         {
           id: 2,
           name: "Площадь",
           value: [10, 150],
-          step: 1
+          step: 1,
+          filterName: "Square"
         },
         {
           id: 3,
           name: "Стоимость",
           value: [1.1, 99.9],
-          step: 0.1
+          step: 0.1,
+          filterName: "Price"
         }
       ]
     };

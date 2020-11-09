@@ -6,7 +6,7 @@
       <input
         type="number"
         v-model="valueProp[0]"
-        @change.prevent="changeSlider([valueProp[0] + 1, valueProp[1]])"
+        @change="setValues(valueProp, slide.filterName)"
         size="2"
         min="slide.value[0]"
       />
@@ -14,7 +14,7 @@
       <input
         type="number"
         v-model="valueProp[1]"
-        @change.prevent="changeSlider([valueProp[0], valueProp[1] - 1])"
+        @change="setValues(valueProp, slide.filterName)"
         size="2"
         max="slide.value[1]"
       />
@@ -24,7 +24,7 @@
       ref="slider"
       :min="min"
       :max="max"
-      @change="changeSlider"
+      @mouseup="setValues(valueProp, slide.filterName)"
       v-model="valueProp"
       v-bind="options"
     />
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { computed } from "vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import VueSlider from "vue-slider-component";
 import "../sass/slider.css";
 
@@ -61,29 +61,23 @@ export default {
   },
   components: { VueSlider },
   methods: {
-    changeSlider(arr: any): any {
-      const [min, max] = arr;
-      // const min: any = this.value[0];
-      // const max: any = this.value[1];
-      // console.log(min);
-      // console.log(max);
-      return this.getByFloor(min, max);
-    },
-    sortBy(val: any): any {
-      console.log(val);
-      console.log(this.allFlats.length);
-      const frr = this.allFlats
-        .filter((item: any) => {
-          return item.short === val;
-        })
-        .map((item: any) => {
-          return item.price;
-        });
-      console.log(frr);
+    setValues(val: any, name: any): any {
+      const min = val[0];
+      const max = val[1];
+      console.log(`${+min} and ${+max} name is ${name}`);
+      const arr = [min, max, name];
+      this.setFilter(arr);
     }
   },
   computed: {
-    ...mapGetters(["getByRooms", "getByFloor", "allFlats", "filteredFlats"])
+    ...mapGetters([
+      "getByRooms",
+      "getByFloor",
+      "allFlats",
+      "filteredFlats",
+      "setFilter"
+    ]),
+    ...mapMutations(["setFilter"])
   }
 };
 </script>

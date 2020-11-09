@@ -6,7 +6,5 @@ export default createStore({
   mutations: {},
   actions: {},
   getters: {},
-  modules: {
-    flat
-  }
+  modules: { flat }
 });
