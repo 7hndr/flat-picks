@@ -21,11 +21,12 @@ body
     justify-items: center
     padding: 2rem
 .title
-    font-size: 7rem
+    font-size: 8rem
     text-transform: uppercase
-    color: $lime
+    color: $ananas
     position: relative
-    margin-bottom: 3rem
+    margin-bottom: 5rem
+    letter-spacing: 0.6rem
     &::before
         z-index: -1
         content: ''
@@ -36,9 +37,20 @@ body
         height: 1.1rem
         background-color: $dark
         opacity: .9
+    @media screen and ( max-width: 620px)
+        font-size: 5rem
+        margin-bottom: 2rem
+        &::before
+            bottom: .5rem
+    @media screen and ( max-width: 425px)
+        font-size: 3.3rem
+        &::before
+            bottom: .25rem
 .sup-title
     color: $black
-    opacity: .75
+    opacity: .6
+    text-transform: uppercase
+    letter-spacing: 0.6rem
     font-size: 1.5rem
 
 .filters
@@ -97,7 +109,7 @@ body
         background-color: $lime
         right: 0
         bottom: -.2rem
-        transition: .25s ease-in-out
+        transition: .5s ease-in-out
     &:hover
         color: $black
         opacity: .75
@@ -127,7 +139,7 @@ body
     background: $white
     box-shadow: 0px 5px 20px rgba(86, 86, 86, 0.05)
     border-radius: 10px
-    transition: .25s ease-in-out
+    transition: .5s ease-in-out
     cursor: pointer
     &:hover
         box-shadow: 0px 5px 20px rgba(86, 86, 86, 0.25)
@@ -276,6 +288,7 @@ body
         align-items: center
         text-align: center
         cursor: pointer
+        transition: .25s ease-in-out
         &:hover
             // background: $lime
             border: 1px solid $lime
@@ -333,3 +346,7 @@ input[type=number]
     justify-content: center
     align-items: center
     text-align: center
+    transition: .25s ease-in-out
+    &:focus, &:hover
+        border: 1px solid $lime
+        box-shadow: 0px 3px 7px rgba(86, 86, 86, 0.1)
