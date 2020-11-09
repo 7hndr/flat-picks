@@ -3,7 +3,10 @@
     <div class="flat-item__extra">
       <span class="flat-item__extra_floor">{{ flat.floor }} этаж</span>
       <div class="flat-item__extra_main">
-        <span class="flat-item__extra_rooms">
+        <span v-if="flat.short == 'XS'" class="flat-item__extra_rooms">
+          студия
+        </span>
+        <span v-else class="flat-item__extra_rooms">
           {{
             `${flat.rooms} комнат${
               flat.rooms > 4 ? "" : flat.rooms > 1 ? "ы" : "а"

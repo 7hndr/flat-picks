@@ -1,60 +1,91 @@
 <template>
   <div class="filters">
-    <div class="filter-btns">
-      <input type="button" value="S" />
-      <input type="button" value="1к" />
-      <input type="button" value="2к" />
-      <input type="button" value="3к" />
+    <div class="filter-rooms">
+      <h3 class="filter-name_rooms">Комнаты</h3>
+      <div class="filter-btns">
+        <input
+          @click.prevent="getByRooms"
+          type="button"
+          name="rooms"
+          value="XS"
+        />
+        <input
+          @click.prevent="getByRooms"
+          type="button"
+          name="rooms"
+          value="1k"
+        />
+        <input
+          @click.prevent="getByRooms"
+          type="button"
+          name="rooms"
+          value="2k"
+        />
+        <input
+          @click.prevent="getByRooms"
+          type="button"
+          name="rooms"
+          value="3k+"
+        />
+      </div>
     </div>
+    <Sliders v-for="slide in sliders" :key="slide.id" v-bind:slide="slide" />
     <span class="separator">|</span>
-    <div class="filter-range">
-      <div class="filter-range_values">
-        <input type="number" v-model.number="minFloor" size="2" />
-        <span class="hyphen">-</span>
-        <input type="number" v-model.number="maxFloor" size="2" />
-      </div>
-      <div class="filter-range_slider">
-        <input
-          type="range"
-          min="1"
-          max="35"
-          step="1"
-          @change="setChangeSlider"
-          v-model.number="minFloor"
-        />
-        <input
-          type="range"
-          min="1"
-          max="35"
-          step="1"
-          @change="setChangeSlider"
-          v-model.number="maxFloor"
-        />
-      </div>
+    <div class="filter-manage">
+      <button class="apply-btn">Применить</button>
+      <span class="filter-reset">Сбросить фильтр</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { computed } from "vue";
+import { mapGetters, mapMutations } from "vuex";
+import Sliders from "./Sliders.vue";
+
 export default {
   name: "Filters",
   data() {
     return {
-      minFloor: 1,
-      maxFloor: 35,
-      setChangeSlider() {
-        if (this.minFloor > this.maxFloor) {
-          const tmp = this.maxFloor;
-          this.maxFloor = this.minFloor;
-          this.minFloor = tmp;
+      sliders: [
+        {
+          id: 1,
+          name: "Этаж",
+          value: [1, 35],
+          step: 1
+        },
+        {
+          id: 2,
+          name: "Площадь",
+          value: [10, 150],
+          step: 1
+        },
+        {
+          id: 3,
+          name: "Стоимость",
+          value: [1.1, 99.9],
+          step: 0.1
         }
-      },
-      floorFilter() {
-        console.log(123);
-      }
+      ]
     };
+  },
+  components: { Sliders },
+  methods: {
+    sortBy(val: any): any {
+      console.log(val);
+      console.log(this.allFlats.length);
+      const frr = this.allFlats
+        .filter((item: any) => {
+          return item.short === val;
+        })
+        .map((item: any) => {
+          return item.price;
+        });
+      console.log(frr);
+    }
+  },
+  computed: {
+    ...mapGetters(["getByRooms", "getByFloor", "allFlats", "filteredFlats"])
   }
 };
 </script>
-
-<style scoped></style>

@@ -1,5 +1,7 @@
 <template>
   <div class="wrapper">
+    <h4 class="sup-title">Your dreams</h4>
+    <h1 class="title">Flat picks</h1>
     <Filters />
     <div class="flats-loop">
       <Card v-for="flat in allFlats" :key="flat.id" v-bind:flat="flat" />
@@ -8,28 +10,28 @@
 </template>
 
 <script lang="ts">
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { defineComponent } from "vue";
 import "./sass/main.sass";
 import Card from "./components/Card.vue";
 import Filters from "./components/Filters.vue";
-import store from "./store/index";
+
 export default defineComponent({
   name: "App",
   computed: mapGetters(["allFlats"]),
+  methods: mapActions(["fetchFlats"]),
   components: {
     Card,
     Filters
   },
   async mounted() {
-    return (this as any).$store.dispatch("fetchFlats");
+    return this.fetchFlats();
   }
 });
 </script>
 
 <style lang="sass">
 #app
-  font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
 </style>
