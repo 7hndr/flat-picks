@@ -5,6 +5,9 @@
     <Filters />
     <div class="flats-loop">
       <Card v-for="flat in allFlats" :key="flat.id" v-bind:flat="flat" />
+      <span v-if="noContent" class="no-cnotent"
+        >Джекпот! Может подберём что-то попроще?</span
+      >
     </div>
   </div>
 </template>
@@ -18,8 +21,11 @@ import Filters from "./components/Filters.vue";
 
 export default defineComponent({
   name: "App",
-  computed: mapGetters(["allFlats"]),
-  methods: mapActions(["fetchFlats"]),
+  computed: { ...mapGetters(["noContent", "allFlats", "calculateFilters"]) },
+  methods: {
+    ...mapActions(["fetchFlats"]),
+    ...mapGetters(["calculateFilters"])
+  },
   components: {
     Card,
     Filters

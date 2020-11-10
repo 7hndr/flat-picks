@@ -24,7 +24,7 @@
       ref="slider"
       :min="min"
       :max="max"
-      @mouseup="setValues(valueProp, slide.filterName)"
+      @mouseup.prevent="setValues(valueProp, slide.filterName)"
       v-model="valueProp"
       v-bind="options"
     />
@@ -39,9 +39,7 @@ import "../sass/slider.css";
 
 export default {
   name: "Sliders",
-  props: {
-    slide: Object
-  },
+  props: { slide: Object },
   data() {
     return {
       valueProp: this.slide.value,
@@ -64,29 +62,18 @@ export default {
     setValues(val: any, name: any): any {
       const min = val[0];
       const max = val[1];
-      console.log(`${+min} and ${+max} name is ${name}`);
       const arr = [min, max, name];
       this.setFilter(arr);
-    }
+    },
+    ...mapGetters(["allFlats", "filteredFlats"]),
+    ...mapActions(["setFilter"])
   },
-  computed: {
-    ...mapGetters([
-      "getByRooms",
-      "getByFloor",
-      "allFlats",
-      "filteredFlats",
-      "setFilter"
-    ]),
-    ...mapMutations(["setFilter"])
-  }
+  computed: {}
 };
 </script>
 
 <style lang="sass">
 .vue-slider
-  width: 90%
-  padding: 1rem
-  margin: 1rem 1rem
-  right: 5px
-  left: 0
+  margin: 1rem
+  margin-right: 1.5rem
 </style>
